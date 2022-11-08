@@ -44,8 +44,8 @@ function scrollActive(){
 /*===== SCROLL REVEAL ANIMATION =====*/
 const sr = ScrollReveal({
     origin: 'top',
-    distance: '60px',
-    duration: 5000,
+    distance: '80px',
+    duration: 2000,
     reset: true
 })
 
@@ -67,7 +67,7 @@ sr.reveal('.skills__name', {distance: '20px', delay: 50, interval: 100})
 sr.reveal('.skills__img', {delay: 400})
 
 /*SCROLL PORTFOLIO*/
-sr.reveal('.portfolio__img', {interval: 100})
+sr.reveal('.portfolio__img', {interval: 200})
 
 /*SCROLL CONTACT*/
 sr.reveal('.contact__subtitle', {})
