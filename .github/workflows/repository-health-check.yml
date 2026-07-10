@@ -6,51 +6,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   health:
-    name: Repository health summary
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Build health summary
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          report_file() {
-            local pattern="$1"
-            local label="$2"
-            if find . -maxdepth 2 -iname "$pattern" -print -quit | grep -q .; then
-              echo "- ${label}: found" >> "$GITHUB_STEP_SUMMARY"
-            else
-              echo "- ${label}: missing" >> "$GITHUB_STEP_SUMMARY"
-            fi
-          }
-
-          tracked_files=$(git ls-files | wc -l | tr -d ' ')
-          latest_commit=$(git log -1 --format='%h %s')
-
-          {
-            echo "## Repository health check"
-            echo ""
-            echo "- Repository: ${GITHUB_REPOSITORY}"
-            echo "- Branch: ${GITHUB_REF_NAME}"
-            echo "- Tracked files: ${tracked_files}"
-            echo "- Latest commit: ${latest_commit}"
-            echo ""
-            echo "### Project basics"
-          } >> "$GITHUB_STEP_SUMMARY"
-
-          report_file "README*" "README"
-          report_file "LICENSE*" "License"
-          report_file ".gitignore" "Git ignore rules"
-          report_file "package.json" "Node package manifest"
-          report_file "requirements*.txt" "Python requirements"
-          report_file "pyproject.toml" "Python project manifest"
-
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "Completed at $(date -u '+%Y-%m-%d %H:%M:%S UTC')." >> "$GITHUB_STEP_SUMMARY"
+    uses: YahyaSaadaoui/YahyaSaadaoui/.github/workflows/reusable-repository-health.yml@main
